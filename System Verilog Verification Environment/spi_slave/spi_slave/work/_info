@@ -1,0 +1,239 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/user/OneDrive/Desktop/CDAC_Project/Slave/15_08_2024_SV_Verification_Env/spi_slave
+T_opt
+!s110 1723813403
+VWUBfja2SYOUaZ8Y[e2FkP3
+04 10 4 work tbench_top fast 0
+=1-089798704bf2-66bf4e1a-3dc-1a94
+Z1 o-quiet -auto_acc_if_foreign -work work
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;10.6c;65
+R0
+T_opt1
+!s110 1723845145
+Vfz1FP[0`T:3OMJg1@jaHm0
+04 6 4 work top_tb fast 0
+=1-089798704bf2-66bfca19-251-257c
+R1
+R2
+n@_opt1
+R3
+vslave2
+Z4 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+DXx4 work 14 tb_top_sv_unit 0 22 1=WXfNJfM_lJ<=PEFNC0c0
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+r1
+!s85 0
+31
+!i10b 1
+!s100 iB[=>=R>5>=[G:OfjaMm70
+IMgYT39aXfch1WY2[[iA:<0
+Z6 !s105 tb_top_sv_unit
+S1
+Z7 dC:/Users/Kartikesh/Desktop/VLSI_PROJECT/spi_slave/spi_slave
+Z8 w1723735827
+Z9 8spi_slave.sv
+Z10 Fspi_slave.sv
+L0 9
+Z11 OL;L;10.6c;65
+!s108 1723785338.000000
+Z12 !s107 spi_slave.sv|scoreboard.sv|monitor.sv|driver.sv|transaction.sv|generator.sv|environment.sv|test.sv|interface.sv|tb_top.sv|
+Z13 !s90 tb_top.sv|
+!i113 0
+Z14 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+Yspi_if
+R4
+!s110 1723845141
+!i10b 1
+!s100 _gbh78H?80_<zB_m;_eJ82
+I5m:P7z?<:F7<D5hPzk;VC0
+R5
+Z15 !s105 top_tb_sv_unit
+S1
+Z16 dC:/Users/Kartikesh/Desktop/VLSI_PROJECT/golden spi/spi_slave/spi_slave
+R8
+8interface.sv
+Z17 Finterface.sv
+L0 1
+R11
+r1
+!s85 0
+31
+Z18 !s108 1723845141.000000
+Z19 !s107 spi_slave.sv|scoreboard.sv|monitor.sv|driver.sv|transaction.sv|generator.sv|environment.sv|test.sv|interface.sv|.\top_tb.sv|
+Z20 !s90 .\top_tb.sv|
+!i113 0
+R14
+R2
+vspi_slave
+R4
+Z21 DXx4 work 14 top_tb_sv_unit 0 22 C9HjTjMzUBnmiVWX3Sc=h0
+R5
+r1
+!s85 0
+31
+!i10b 1
+!s100 Oj<DDDmaaPjlXnl;jeAzc2
+I^fWMdNS3mi_QbbLgVVzT>3
+R15
+S1
+R16
+w1723790119
+R9
+R10
+L0 28
+R11
+R18
+R19
+R20
+!i113 0
+R14
+R2
+Xtb_top_sv_unit
+Z22 !s115 spi_if
+R4
+VieV2Zm8d@_BVlc3Y@?3L71
+r1
+!s85 0
+31
+!i10b 1
+!s100 19QzY8i03S6a:WOY:;;hB2
+IieV2Zm8d@_BVlc3Y@?3L71
+!i103 1
+S1
+R7
+w1723813392
+Z23 8tb_top.sv
+Z24 Ftb_top.sv
+R17
+Z25 Ftest.sv
+Z26 Fenvironment.sv
+Z27 Fgenerator.sv
+Z28 Ftransaction.sv
+Z29 Fdriver.sv
+Z30 Fmonitor.sv
+Z31 Fscoreboard.sv
+R10
+L0 6
+R11
+Z32 !s108 1723813399.000000
+R12
+R13
+!i113 0
+R14
+R2
+vtbench_top
+R4
+DXx4 work 14 tb_top_sv_unit 0 22 ieV2Zm8d@_BVlc3Y@?3L71
+R5
+r1
+!s85 0
+31
+!i10b 1
+!s100 H?>H^;Q7dR?VPNzLe0V];2
+IRbQko048UOEi?bZ5OLKfG0
+R6
+S1
+R7
+w1723741775
+R23
+R24
+L0 7
+R11
+R32
+R12
+R13
+!i113 0
+R14
+R2
+4test
+R4
+R21
+R5
+r1
+!s85 0
+31
+!i10b 1
+!s100 nV]A`Ne?2X<iI9L]bnlkm2
+I:jH_a_56_Pe?<XS2RdinD0
+R15
+S1
+R16
+Z33 w1723845135
+8test.sv
+R25
+L0 3
+R11
+R18
+R19
+R20
+!i113 0
+R14
+R2
+vtop_tb
+R4
+R21
+R5
+r1
+!s85 0
+31
+!i10b 1
+!s100 :0KKR9FX=j36nWdH?I>ng1
+IiZfN0@;@0_:2E4jI9=5K_3
+R15
+S1
+R16
+w1723845049
+Z34 8.\top_tb.sv
+Z35 F.\top_tb.sv
+L0 7
+R11
+R18
+R19
+R20
+!i113 0
+R14
+R2
+Xtop_tb_sv_unit
+R22
+R4
+VC9HjTjMzUBnmiVWX3Sc=h0
+r1
+!s85 0
+31
+!i10b 1
+!s100 >7=?F=2jHOb:z2IaCPF6S2
+IC9HjTjMzUBnmiVWX3Sc=h0
+!i103 1
+S1
+R16
+R33
+R34
+R35
+R17
+R25
+R26
+R27
+R28
+R29
+R30
+R31
+R10
+L0 6
+R11
+R18
+R19
+R20
+!i113 0
+R14
+R2

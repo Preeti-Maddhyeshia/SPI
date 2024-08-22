@@ -1,0 +1,580 @@
+// rtl code
+`timescale 1ns / 1ps
+
+
+module spi_master(
+
+                    input clk,
+                    input cs_in,
+                    input data_in,
+                    input reset_n,
+                    input miso,
+                    output reg sclk,
+                    output reg mosi,
+                    output reg cs,
+                    output reg [7:0] data_out
+                    );
+
+//reg [6:0] count;
+reg [3:0] count;                            //for clock dividing
+reg [3:0] count2;                           //for counting the bits of data frame
+reg read_flag;
+reg i_sclk;
+ //read_flag=count2[0];  
+                    
+always @(posedge clk, negedge reset_n) begin                //for clock dividing
+    if(!reset_n) begin
+        count <= 'b0;//clk frequence divide
+        //count2 <= 'b0;//read _flag_set//
+     
+    end
+      else if({count[3],count[2],count[1],count[0]} == 4'b1000) begin
+        count <= 'b0;
+        //count2 <= count2 + 1'b1;
+      end
+    else begin
+        count <= count + 1'b1;
+        //count2 <= count2;
+    end
+end    
+
+always @(posedge i_sclk, negedge reset_n) begin                
+    if(!reset_n) begin
+        //count <= 'b0;//clk frequence divide
+        count2 <= 'b0;//read _flag_set//
+     
+    end
+      else if({count2[3],count2[2],count2[1],count2[0]} == 4'b1000) 
+        count2 <= 0;
+      //else if({count[3],count[2],count[1],count[0]} == 4'b1000) begin
+        //count <= 'b0;
+        else
+        count2 <= count2 + 1'b1;
+//    else begin
+//        //count <= count + 1'b1;
+//        count2 <= count2;
+//    end
+end    
+
+always @(posedge i_sclk, negedge reset_n) begin                //for capturing read and write bit
+    if(!reset_n)
+        read_flag <= 'b0;
+
+      else if(count2 == 'd0)begin
+        read_flag <= data_in;
+        end
+    else
+        read_flag <= read_flag;
+end            
+
+//CLK DIV FOR FPGA COMPATIBILITY                  
+always @(posedge clk, negedge reset_n) begin                
+    if(!reset_n) begin
+        sclk <= 'b1;
+        i_sclk <= 'b1;
+        cs <= 'b1;
+    end 
+//    else if(count[6] && count[5] && count[2] == 1) begin
+      else if({count[3],count[2],count[1],count[0]} == 4'b1000) begin
+        if(read_flag == 1'b0) begin
+           cs <= cs_in;
+           if(cs_in==0)begin
+            sclk <= ~sclk;
+            i_sclk <= ~i_sclk;
+           end
+           else begin
+           sclk <= 'b1;
+           i_sclk <= 'b1;
+          end
+        end 
+        else begin
+         cs <= cs_in;
+         if(cs_in==0)begin
+            //if(count2 == 'd7) begin
+                //sclk <= ~sclk;
+                //i_sclk <= ~i_sclk;
+            //end
+            //else begin
+            sclk <= ~sclk;
+            i_sclk <= ~i_sclk;
+            //end
+          end
+          else begin
+            sclk='b1;
+            i_sclk <= 'b1;
+          end 
+        end
+        end
+     else begin
+        sclk <= sclk;
+        i_sclk <= i_sclk;
+        cs <= cs;
+    end    
+end                            
+
+always @(posedge i_sclk, negedge reset_n) begin        //MOSI Block                
+    if(!reset_n) begin                                  //output buses are not reset
+        mosi <= 'b0;
+    end 
+//    else if(count[6] && count[5] && count[2] == 1) begin
+//      else if({count[3],count[2],count[1],count[0]} == 4'b1000) begin
+      else begin
+        if(read_flag == 1'b0) begin
+           if(cs_in==0)begin
+            mosi <= data_in;
+           end
+           else begin
+           mosi <= mosi;
+          end
+        end 
+        else begin
+         if(cs_in==0)begin
+//            if(count2 == 'd7) begin
+//                data_out <= data_out;
+//            end
+//            else begin
+                data_out <= {miso, data_out[7:1]};
+            //end
+          end
+          else begin
+            data_out <= data_out;
+          end 
+        end
+        end
+//     else begin
+//        mosi <= mosi;
+//        data_out <= data_out;
+//    end    
+end                            
+
+endmodule
+
+
+
+
+`timescale 1ns / 1ps
+
+//README:
+//---> count variable is to count the no. of bits of the frame.
+//---> read_flag is the first bit of the data frame.
+//---> read_flag = 0 for write into slave by mosi line.
+//---> read_flag = 1 for read through slave, by sending data to master, on miso line.
+
+module spi_slave(
+                    input sclk, mosi,cs,i_reset_n,
+                    output reg [7:0] dout,
+                    output reg miso
+                   );
+integer count;             
+reg  read_flag;
+
+always @(posedge sclk,negedge i_reset_n) begin// edge negedge cs)/* posedge cs)*/ begin
+    if(!i_reset_n)
+        count <= 0;
+    else if(!cs && (count == 8)) 
+        count <= 0;
+     else
+        count <= count + 1;           
+    end
+
+//to sample read_flag
+ 
+always @(posedge sclk,negedge i_reset_n) begin
+   if(!i_reset_n)
+        read_flag <= 1;
+   else if(!cs && (count == 0)) 
+        read_flag <= mosi;  
+ end
+ 
+//to write in slave
+
+always @(posedge sclk) begin
+   if(!cs && (read_flag==0) && (count > 0) && (count <= 8))
+            dout <= {mosi,dout[7:1]};        
+ end  
+
+//to drive MISO
+
+always @(posedge sclk,negedge i_reset_n) begin
+    if(!i_reset_n)
+        miso <= 1'b0;
+    else if(!cs && read_flag && (count > 0) && (count <= 8))
+        miso <= dout[count - 1]; //TODO
+end
+
+endmodule
+
+
+
+
+`timescale 1ns / 1ps
+
+`include "spi_slave.sv"
+`include "spi_master.sv"
+
+    module top( 
+                input clk,
+                input cs_in,
+                input reset_n,
+                input data_in,
+                //input miso,
+                output [7:0] dout_slave,
+                output [7:0] dout_master
+                );
+                    
+    wire sclk,mosi,cs,miso;
+    
+    
+    spi_master m1(.clk(clk),.cs_in(cs_in), .reset_n(reset_n),.miso(miso),.sclk(sclk),
+              .mosi(mosi),.cs(cs),.data_in(data_in),.data_out(dout_master));
+                    
+   spi_slave s1(.sclk(sclk), .mosi(mosi),.cs(cs),.i_reset_n(reset_n),
+             .dout(dout_slave),.miso(miso) );
+
+endmodule
+
+
+----------------------------------------------------------------------------------------------------------------
+
+// interface.sv
+
+interface spi_if(input logic clk,input logic reset_n);
+    logic cs_in;
+    logic data_in;
+    logic [7:0] dout_slave;
+    logic [7:0] dout_master;
+
+endinterface
+----------------------------------------------------------------------------------
+
+//transaction_m.sv
+
+`ifndef GAURD_TRANSACTION
+    `define GAURD_TRANSACTION
+
+class transaction;
+        rand bit data_in;
+        bit reset_n;
+        bit clk;
+        bit cs_in;
+        bit [7:0] dout_slave;
+        bit [7:0] dout_master;
+  
+    function void display(string name);
+        $display("====================================================");
+        $display(" %s ", name);
+        $display("data_in = %b , cs_in = %d , reset_n = %d", data_in, cs_in, reset_n);
+
+        $display("dout_slave = %b , dout_master = %b", dout_slave, dout_master);
+        $display("====================================================");
+    endfunction
+endclass
+
+`endif
+
+------------------------------------------------------------------------------------------------------
+
+// generator.sv
+
+`include "transaction_m.sv"
+
+class generator;
+  int count;
+  transaction trn;
+  mailbox gen2drv;
+  event ended;
+
+  // Constructor
+  function new(mailbox gen2drv);
+    this.gen2drv = gen2drv;
+  endfunction
+
+  task main();
+    repeat(count)
+      begin
+        trn = new();
+        trn.randomize();
+        trn.display("Generator");
+        gen2drv.put(trn);
+      end
+
+      ->ended;
+      
+  endtask
+
+endclass
+
+
+------------------------------------------------------------------------------------------------------
+
+// driver.sv
+
+`include "transaction_m.sv"
+
+class driver;
+    
+    int count;
+    transaction trn;
+    virtual spi_if vif;
+    mailbox gen2drv;
+
+    function new(mailbox gen2drv, virtual spi_if vif);
+        this.gen2drv = gen2drv;
+        this.vif = vif;
+    endfunction
+
+
+    task reset();
+        wait(!vif.reset_n);
+        $display("Reset started..........");
+        vif.cs_in <= 0;
+        vif.data_in <= 0;        
+    endtask
+
+
+    task main();
+        forever begin
+        gen2drv.get(trn);
+
+        repeat(8) begin
+            
+        @(posedge vif.clk);
+        vif.cs_in <= trn.cs_in;
+        vif.data_in <= trn.data_in;
+        end
+
+        count++;
+        trn.display("Driver");
+    end
+    endtask
+endclass
+---------------------------------------------------------------------------------------------
+
+// monitor.sv
+
+`include "transaction_m.sv"
+
+class monitor;
+
+    virtual spi_if vif;
+    mailbox mon2scb;
+    
+    
+    function new(virtual spi_if vif, mailbox mon2scb);
+        this.vif = vif;
+        this.mon2scb = mon2scb;
+    endfunction
+
+    task main();
+        
+        transaction trn;
+        trn = new();
+
+        forever  begin
+            repeat(9)
+                @(posedge vif.clk)
+                trn.reset_n = vif.reset_n;
+                trn.data_in = vif.data_in;
+                trn.cs_in = vif.cs_in;
+                trn.dout_slave = vif.dout_slave;
+                trn.dout_master = vif.dout_master;
+
+                mon2scb.put(trn);
+                trn.display("Monitor");
+             end
+    endtask
+endclass
+
+
+------------------------------------------------------------------------------------------------------
+
+// scoreboard.sv
+`include"transaction_m.sv"
+
+class scoreboard;
+    
+    int count;
+
+    mailbox mon2scb;
+    mailbox gen2drv;
+    transaction trn_mon, trn_drv, trn;
+
+    function new(mailbox mon2scb, mailbox gen2drv);
+        this.mon2scb = mon2scb;
+        this.gen2drv = gen2drv;
+    endfunction
+
+
+    task main();
+        
+        forever begin
+                gen2drv.get(trn_drv);  // Get data from driver
+                mon2scb.get(trn_mon);  // Get data from monitor
+
+            
+                $display("[sco] : DRV : %0d MON : %0d", trn_drv.dout_master, trn_mon.dout_master) ;
+                    if(trn_drv.dout_master == trn_mon.dout_master)
+                        $display("[sco] : DATA MATCHED FOR DOUT MASTER");
+                    
+                    else if(trn_drv.dout_slave == trn_mon.dout_slave)
+                         $display("[sco] : DATA MATCHED FOR DOUT SLAVE");
+
+                    else
+                        $display("[sco] : DATA MISMATCHED");
+                        $display("---------------------------------------------");
+                trn.display("Scoreboard");
+                
+                count++;
+            end
+    endtask
+endclass
+
+
+
+------------------------------------------------------------------------------------------------
+
+// environment.sv
+
+`include "generator_m.sv"
+`include "driver_m.sv"
+`include "monitor_m.sv"
+`include "scoreboard_m.sv"
+
+class environment;
+    generator gen;
+    driver drv;
+    monitor mon;
+    scoreboard scb;
+
+    mailbox gen2drv;
+    mailbox mon2scb;
+
+    virtual spi_if vif;
+
+
+    function new(virtual spi_if vif);
+        this.vif = vif;
+
+        gen2drv = new();
+        mon2scb = new();
+
+        gen = new(gen2drv);
+        drv = new(gen2drv, vif);
+        mon = new(vif, mon2scb);
+        scb = new(mon2scb, gen2drv);
+    endfunction
+
+
+    task pre_start();
+        drv.reset();
+    endtask 
+
+
+    task test();
+        fork
+            gen.main();
+            drv.main();
+            mon.main();
+            scb.main();
+        join_any
+    endtask
+
+
+    task start();
+        wait(gen.ended.triggered);
+        wait(drv.count == gen.count);
+        wait(scb.count == gen.count);
+    endtask : start
+
+
+    task run();
+        pre_start();
+        test();
+        start();
+
+        #1000;
+        $finish;
+    endtask
+    
+endclass
+
+
+------------------------------------------------------------------------------------
+
+// test.sv
+`include "environment_m.sv"
+
+program test(spi_if i_intf);
+
+    environment env;
+
+        initial begin
+            env = new(i_intf);
+
+            env.gen.count = 50;
+            
+            env.run();
+        end
+
+endprogram
+
+
+----------------------------------------------------------------------------------------
+
+// // tob_tb.sv
+`timescale 1ns / 1ps
+
+`include "interface_m.sv"
+`include "test_m.sv"
+`include "top_m.v"
+
+module tbench_top;
+
+    bit clk;
+    bit reset_n;
+
+
+    spi_if i_intf(clk, reset_n); // Instantiating the SPI interface
+    
+    // Instantiating the SPI slave module
+    top DUT (
+        .clk(clk), 
+        .data_in(i_intf.data_in),
+        .cs_in(i_intf.cs_in),
+        .reset_n(reset_n),
+        .dout_master(i_intf.dout_master),
+        .dout_slave(i_intf.dout_slave)
+
+    );
+
+
+    test t1(i_intf); // Connecting the interface to the test program
+
+    always #5 clk = ~clk; // Generate clock with a 10 ns period (100 MHz)
+
+
+    // Initial block for generating the clock and reset signals
+    initial begin
+        clk = 0;
+        reset_n = 0;
+        i_intf.cs_in = 1; // Ensure chip select is inactive initially
+        #10 i_intf.cs_in = 0;
+
+        #20 reset_n = 1; // Release reset after 5 ns
+        
+        
+    end
+
+    // Dumping the waveform for analysis
+    initial begin
+        $dumpfile("wave.vcd"); 
+        $dumpvars(1, tbench_top.DUT, i_intf); // Dumping all variables in the tbench_top module
+    end
+
+    // End simulation after a certain time (optional, but useful for stopping infinite simulation)
+    // initial begin
+    //     #1000; // Adjust the time as per your test duration
+    //     $finish;
+    // end
+
+endmodule

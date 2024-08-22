@@ -1,0 +1,263 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Kartikesh/Desktop/VLSI_PROJECT/spi_top/master_top
+T_opt
+!s110 1723813859
+VX`=zzI[hP=_Ek`hj@nWVU1
+04 10 4 work tbench_top fast 0
+=1-089798704bf2-66bf4fe3-2dc-2c34
+Z1 o-quiet -auto_acc_if_foreign -work work
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;10.6c;65
+R0
+T_opt1
+!s110 1723845446
+V=RkMG[T3nnHQ6n0E91]]01
+04 6 4 work top_tb fast 0
+=1-089798704bf2-66bfcb46-d8-26d4
+R1
+R2
+n@_opt1
+R3
+Yspi_if
+Z4 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+!s110 1723845442
+!i10b 1
+!s100 hKgSoJ;_NI^nC7EORmz<b0
+IT4N3a0D>@[FJ0;eh:iZK[2
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 !s105 top_tb_sv_unit
+S1
+Z7 dC:/Users/Kartikesh/Desktop/VLSI_PROJECT/golden spi/spi_top/top
+w1723779621
+8interface.sv
+Z8 Finterface.sv
+L0 1
+Z9 OL;L;10.6c;65
+r1
+!s85 0
+31
+Z10 !s108 1723845442.000000
+Z11 !s107 top.v|scoreboard.sv|monitor.sv|driver.sv|transaction.sv|generator.sv|environment.sv|test.sv|interface.sv|.\top_tb.sv|
+Z12 !s90 .\top_tb.sv|
+!i113 0
+Z13 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+vspi_master
+R4
+Z14 !s110 1723783494
+!i10b 1
+!s100 OaW21hO[DQLd<TmDg>GQH1
+IZkCUm5E^VNK1YG7CWZjCK2
+R5
+Z15 !s105 tb_top_m_sv_unit
+S1
+Z16 dC:/Users/Kartikesh/Desktop/VLSI_PROJECT/spi_top/top
+w1723764776
+8spi_master.sv
+Fspi_master.sv
+L0 4
+R9
+r1
+!s85 0
+31
+Z17 !s108 1723783494.000000
+Z18 !s107 spi_master.sv|spi_slave.sv|top_m.v|scoreboard_m.sv|monitor_m.sv|driver_m.sv|transaction_m.sv|generator_m.sv|environment_m.sv|test_m.sv|interface_m.sv|tb_top_m.sv|
+Z19 !s90 tb_top_m.sv|
+!i113 0
+R13
+R2
+vspi_slave
+R4
+R14
+!i10b 1
+!s100 1NIdC_D`Q3V6AlMa^n5^V0
+I0@^_jc<nU8fTV37XSL86W0
+R5
+R15
+S1
+R16
+w1723765069
+8spi_slave.sv
+Fspi_slave.sv
+L0 9
+R9
+r1
+!s85 0
+31
+R17
+R18
+R19
+!i113 0
+R13
+R2
+Xtb_top_m_sv_unit
+Z20 !s115 spi_if
+R4
+V7aQebO`X6T@Bf;Wk4PR[@3
+r1
+!s85 0
+31
+!i10b 1
+!s100 Pcg:@@j_0T:Ae`oAKcIne0
+I7aQebO`X6T@Bf;Wk4PR[@3
+!i103 1
+S1
+R16
+Z21 w1723813845
+Z22 8tb_top_m.sv
+Z23 Ftb_top_m.sv
+Finterface_m.sv
+Ftest_m.sv
+Fenvironment_m.sv
+Fgenerator_m.sv
+Ftransaction_m.sv
+Fdriver_m.sv
+Fmonitor_m.sv
+Fscoreboard_m.sv
+Ftop_m.v
+L0 6
+R9
+Z24 !s108 1723813856.000000
+Z25 !s107 top_m.v|scoreboard_m.sv|monitor_m.sv|driver_m.sv|transaction_m.sv|generator_m.sv|environment_m.sv|test_m.sv|interface_m.sv|tb_top_m.sv|
+R19
+!i113 0
+R13
+R2
+vtbench_top
+R4
+DXx4 work 16 tb_top_m_sv_unit 0 22 7aQebO`X6T@Bf;Wk4PR[@3
+R5
+r1
+!s85 0
+31
+!i10b 1
+!s100 HP=X_44hCRl]Eh`D?Y[Gn1
+IdJ^kSoD5=XOD]GZ71zokb1
+R15
+S1
+R16
+w1723770544
+R22
+R23
+L0 7
+R9
+R24
+R25
+R19
+!i113 0
+R13
+R2
+4test
+R4
+Z26 DXx4 work 14 top_tb_sv_unit 0 22 6?Be;GEA>hgmU262H]7IG3
+R5
+r1
+!s85 0
+31
+!i10b 1
+!s100 nV]A`Ne?2X<iI9L]bnlkm2
+I:jH_a_56_Pe?<XS2RdinD0
+R6
+S1
+R7
+w1723844313
+8test.sv
+Z27 Ftest.sv
+L0 3
+R9
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vtop
+R4
+R26
+R5
+r1
+!s85 0
+31
+!i10b 1
+!s100 YQFjMYQc]:<>]`GnLLWbV0
+I3MGLzYKbm1UQ;LB;7@93Y1
+R6
+S1
+R7
+R21
+8top.v
+Z28 Ftop.v
+L0 23
+R9
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vtop_tb
+R4
+R26
+R5
+r1
+!s85 0
+31
+!i10b 1
+!s100 kLRPBk3hbDmcGk?9439^E3
+I[o0L5QjndW3>YJ]KBJaLW1
+R6
+S1
+R7
+w1723845071
+Z29 8.\top_tb.sv
+Z30 F.\top_tb.sv
+L0 7
+R9
+R10
+R11
+R12
+!i113 0
+R13
+R2
+Xtop_tb_sv_unit
+R20
+R4
+V6?Be;GEA>hgmU262H]7IG3
+r1
+!s85 0
+31
+!i10b 1
+!s100 ]UzN:0>PSg7A9caflZBF<1
+I6?Be;GEA>hgmU262H]7IG3
+!i103 1
+S1
+R7
+w1723845436
+R29
+R30
+R8
+R27
+Fenvironment.sv
+Fgenerator.sv
+Ftransaction.sv
+Fdriver.sv
+Fmonitor.sv
+Fscoreboard.sv
+R28
+L0 6
+R9
+R10
+R11
+R12
+!i113 0
+R13
+R2

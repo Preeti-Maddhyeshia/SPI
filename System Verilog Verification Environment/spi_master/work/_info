@@ -1,0 +1,181 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Kartikesh/Desktop/VLSI_PROJECT/spi_master
+T_opt
+!s110 1723844936
+VT2B7cW<_C;C7igz^6`3nW2
+04 6 4 work top_tb fast 0
+=1-089798704bf2-66bfc948-2aa-3b14
+o-quiet -auto_acc_if_foreign -work work
+Z1 tCvgOpt 0
+n@_opt
+OL;O;10.6c;65
+Yinf
+Z2 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+!s110 1723844932
+!i10b 1
+!s100 U;:NzXW5H9`>FP=aF<bNM3
+I9IFnCj3fBeZbUB[UKT8bO1
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+Z4 !s105 top_tb_sv_unit
+S1
+Z5 dC:/Users/Kartikesh/Desktop/VLSI_PROJECT/golden spi/spi_master
+w1723686005
+8interface.sv
+Z6 Finterface.sv
+L0 3
+Z7 OL;L;10.6c;65
+r1
+!s85 0
+31
+Z8 !s108 1723844932.000000
+Z9 !s107 spi_master.v|scoreboard.sv|monitor.sv|driver.sv|transaction.sv|generator.sv|environment.sv|test.sv|interface.sv|.\top_tb.sv|
+Z10 !s90 .\top_tb.sv|
+!i113 0
+Z11 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vspi_master
+R2
+Z12 DXx4 work 14 top_tb_sv_unit 0 22 3WMUcU:=9@YT_RLmOh8L:2
+R3
+r1
+!s85 0
+31
+!i10b 1
+!s100 e085Jz_mYdZ;KXR6@9gzO2
+I4X4g4O3QN<kfWzE>1Pbja0
+R4
+S1
+R5
+w1723791225
+8spi_master.v
+Z13 Fspi_master.v
+L0 23
+R7
+R8
+R9
+R10
+!i113 0
+R11
+R1
+4test
+R2
+R12
+R3
+r1
+!s85 0
+31
+!i10b 1
+!s100 RRY4lkG3N;nmVoAR4ima[1
+IEhCScZQ5^4YScFUHP7W5S0
+R4
+S1
+R5
+Z14 w1723844925
+8test.sv
+Z15 Ftest.sv
+L0 4
+R7
+R8
+R9
+R10
+!i113 0
+R11
+R1
+Xtob_tb_sv_unit
+!s115 inf
+R2
+VCi<>G[<U2lZf`7cUnnGgL2
+r1
+!s85 0
+31
+!i10b 1
+!s100 oYRNn>BQlfASU?Jc0ZHP<1
+ICi<>G[<U2lZf`7cUnnGgL2
+!i103 1
+S1
+R0
+w1723790049
+8tob_tb.sv
+Ftob_tb.sv
+R6
+R15
+Z16 Fenvironment.sv
+Z17 Fgenerator.sv
+Z18 Ftransaction.sv
+Z19 Fdriver.sv
+Z20 Fmonitor.sv
+Z21 Fscoreboard.sv
+R13
+L0 5
+R7
+!s108 1723790200.000000
+!s107 spi_master.v|scoreboard.sv|monitor.sv|driver.sv|transaction.sv|generator.sv|environment.sv|test.sv|interface.sv|tob_tb.sv|
+!s90 tob_tb.sv|
+!i113 0
+R11
+R1
+vtop_tb
+R2
+R12
+R3
+r1
+!s85 0
+31
+!i10b 1
+!s100 QlB`VN6Hdl_hPi93c4T0Y2
+I2=m[=A=ZidnDHCKQPPo:k1
+R4
+S1
+R5
+w1723705096
+Z22 8.\top_tb.sv
+Z23 F.\top_tb.sv
+L0 6
+R7
+R8
+R9
+R10
+!i113 0
+R11
+R1
+Xtop_tb_sv_unit
+!s115 inf
+R2
+V3WMUcU:=9@YT_RLmOh8L:2
+r1
+!s85 0
+31
+!i10b 1
+!s100 Ul@eR:TZG1XObXSZhF<DF1
+I3WMUcU:=9@YT_RLmOh8L:2
+!i103 1
+S1
+R5
+R14
+R22
+R23
+R6
+R15
+R16
+R17
+R18
+R19
+R20
+R21
+R13
+L0 5
+R7
+R8
+R9
+R10
+!i113 0
+R11
+R1
